@@ -1,6 +1,6 @@
 type Picture = 'large' | 'medium' | 'thumbnail';
 
-export type userType = {
+export type UserType = {
   name: {
     first: string,
     last: string
@@ -10,7 +10,14 @@ export type userType = {
   }
 }
 
-export type catFactType = {
+export type CatFactType = {
   fact: string
   length: number
 }
+
+export type CatFactsResponse = {
+  data: CatFactType[];
+  current_page: number;
+  total: number;
+  per_page: number;
+};
