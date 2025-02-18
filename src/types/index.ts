@@ -10,6 +10,10 @@ export type UserType = {
   }
 }
 
+export interface UserTypeResponse {
+  results: UserType[];
+}
+
 export type CatFactType = {
   fact: string
   length: number
