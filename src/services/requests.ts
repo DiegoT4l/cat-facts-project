@@ -1,10 +1,9 @@
-import type { UserType, CatFactsResponse } from '@/types';
+import type { UserTypeResponse, CatFactsResponse } from '@/types';
 
 
-
-async function requestUsers(): Promise<UserType[]> {
+async function requestUsers(): Promise<UserTypeResponse['results']> {
   const response = await fetch(
-    'https://randomuser.me/api/?results=20&inc=name,picture&seed=38c36f5c3dccb94f'
+    'https://randomuser.me/api/?results=10&inc=name,picture&seed=38c36f5c3dccb94f'
   );
 
   if (!response.ok) {
@@ -25,14 +24,14 @@ async function requestCatFacts(page: number): Promise<CatFactsResponse> {
   return response.json();
 }
 
-export async function fetchuserDataWithFacts(page: number) {
+export async function fetchUserDataWithFacts(page: number) {
   const [randomUsers, catFacts] = await Promise.all([
     requestUsers(),
     requestCatFacts(page),
   ]);
 
   return {
-    catFacts: catFacts.data,
+    catFacts,
     randomUsers,
     nextPage: catFacts.current_page < Math.ceil(catFacts.total / catFacts.per_page)
       ? catFacts.current_page + 1
