@@ -21,3 +21,9 @@ export type CatFactsResponse = {
   total: number;
   per_page: number;
 };
+
+export interface InfiniteScrollOptions {
+  hasNextPage: boolean;
+  isFetchingNextPage: boolean;
+  fetchNextPage: () => void;
+}
