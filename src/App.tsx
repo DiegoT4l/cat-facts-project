@@ -1,52 +1,62 @@
+import { Fragment } from "react";
+import useCatFacts from '@/hooks/useCatFacts';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import Card from "@/components/Card.tsx";
-import { useEffect, useState } from "react";
-import { userType } from "@/types";
-import { requestCatFacts, requestUsers } from "@/services/requests.ts";
-import debounce from "@/utils/debounce.ts";
+import SkeletonCard from '@/components/SkeletonCard';
+import Error from '@/components/Error';
 
 function App() {
-  const [userDataWithFacts, setUserDataWithFacts] = useState<{ user: userType; fact: string }[]>([]);
-  const [isLoading, setLoading] = useState(true);
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useCatFacts();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [users, facts] = await Promise.all([requestUsers(), requestCatFacts()]);
+  const { ref } = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
-        // Designate a random fact to each user
-        const userDataWithFacts = users.map((user) => ({
-          user,
-          fact: facts[Math.floor(Math.random() * facts.length)].fact,
-        }));
-
-        setUserDataWithFacts(userDataWithFacts);
-
-        // Debounce the setLoading to avoid flickering
-        debounce(() => setLoading(false), 200)();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (isLoading) {
+  if (status === 'error') {
     return (
-      <div className="flex flex-col justify-center items-center min-h-screen">
-        <h1 className="text-xl font-bold">Loading...</h1>
+      <div className="min-h-screen bg-gray-100 p-6">
+        <Error message={(error as Error).message} />
       </div>
     );
   }
 
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <div className="container grow mx-auto p-6">
-        <div className="flex flex-col gap-4 justify-center max-w-3xl mx-auto">
-          {userDataWithFacts.map(({ user, fact }, index) => (
-            <Card key={`${user.name.first}:${index}`} user={user} fact={fact} />
-          ))}
+        <div className="max-w-2xl mx-auto space-y-4">
+          {status === 'pending' ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <SkeletonCard key={i} />
+            ))
+          ) : (
+            <>
+              {data.pages.map((page, i) => (
+                <Fragment key={i}>
+                  {page.catFacts.data.map((fact, index) => (
+                    <Card
+                      key={`${i}-${index}`}
+                      fact={fact.fact}
+                      user={page.randomUsers[index]}
+                    />
+                  ))}
+                </Fragment>
+              ))}
+            </>
+          )}
+
+          <div ref={ref} className="h-4">
+            {isFetchingNextPage && <SkeletonCard />}
+          </div>
         </div>
       </div>
     </div>
