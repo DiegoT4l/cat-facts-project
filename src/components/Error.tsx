@@ -6,8 +6,6 @@ function Error({ message }: { message: string }) {
       </div>
     </div>
   );
-
 }
-
 
 export default Error;

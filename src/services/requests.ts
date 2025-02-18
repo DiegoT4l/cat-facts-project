@@ -1,10 +1,7 @@
 import type { UserTypeResponse, CatFactsResponse } from '@/types';
 
-
 async function requestUsers(): Promise<UserTypeResponse['results']> {
-  const response = await fetch(
-    'https://randomuser.me/api/?results=10&inc=name,picture&seed=38c36f5c3dccb94f'
-  );
+  const response = await fetch('https://randomuser.me/api/?results=10&inc=name,picture&seed=38c36f5c3dccb94f');
 
   if (!response.ok) {
     throw new Error('Failed to fetch users');
@@ -25,16 +22,12 @@ async function requestCatFacts(page: number): Promise<CatFactsResponse> {
 }
 
 export async function fetchUserDataWithFacts(page: number) {
-  const [randomUsers, catFacts] = await Promise.all([
-    requestUsers(),
-    requestCatFacts(page),
-  ]);
+  const [randomUsers, catFacts] = await Promise.all([requestUsers(), requestCatFacts(page)]);
 
   return {
     catFacts,
     randomUsers,
-    nextPage: catFacts.current_page < Math.ceil(catFacts.total / catFacts.per_page)
-      ? catFacts.current_page + 1
-      : undefined,
+    nextPage:
+      catFacts.current_page < Math.ceil(catFacts.total / catFacts.per_page) ? catFacts.current_page + 1 : undefined,
   };
 }

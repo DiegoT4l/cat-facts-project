@@ -1,13 +1,8 @@
-import {useEffect} from 'react';
-import {useInView} from 'react-intersection-observer';
-import type {InfiniteScrollOptions} from '@/types';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import type { InfiniteScrollOptions } from '@/types';
 
-
-function useInfiniteScroll({
-  hasNextPage,
-  isFetchingNextPage,
-  fetchNextPage
-}: InfiniteScrollOptions) {
+function useInfiniteScroll({ hasNextPage, isFetchingNextPage, fetchNextPage }: InfiniteScrollOptions) {
   const { ref, inView } = useInView();
 
   useEffect(() => {
@@ -18,6 +13,5 @@ function useInfiniteScroll({
 
   return { ref };
 }
-
 
 export default useInfiniteScroll;

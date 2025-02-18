@@ -15,37 +15,43 @@ A React application that displays cat facts paired with random user profiles, fe
 The application follows a modular architecture with clear separation of concerns:
 
 ### Components
+
 - `App.tsx` - Main application component
 - `Card.tsx` - Displays individual cat fact with user information
 - `SkeletonCard.tsx` - Loading placeholder component
 - `Error.tsx` - Error state component
 
 ### Custom Hooks
+
 - `useCatFacts` - Manages cat facts data fetching with React Query
 - `useInfiniteScroll` - Handles infinite scroll functionality
 
 ### Services
+
 - `requests.ts` - API integration layer with external services
 
 ### Types
+
 - `types.ts` - TypeScript type definitions for API responses and data structures
 
 ## 🔄 Data Flow
 
 1. The application fetches data from two external APIs:
-    - Cat Facts API (`https://catfact.ninja/facts`)
-    - Random User API (`https://randomuser.me/api`)
+
+   - Cat Facts API (`https://catfact.ninja/facts`)
+   - Random User API (`https://randomuser.me/api`)
 
 2. Data fetching is managed through React Query, providing:
-    - Automatic caching
-    - Background updates
-    - Error handling
-    - Loading states
+
+   - Automatic caching
+   - Background updates
+   - Error handling
+   - Loading states
 
 3. Infinite scroll implementation:
-    - Uses Intersection Observer API
-    - Loads new data when the user reaches the bottom
-    - Shows loading indicators during data fetching
+   - Uses Intersection Observer API
+   - Loads new data when the user reaches the bottom
+   - Shows loading indicators during data fetching
 
 ## 🎯 Features
 
@@ -59,6 +65,7 @@ The application follows a modular architecture with clear separation of concerns
 ## 🔧 API Integration
 
 ### Cat Facts API
+
 ```typescript
 // Endpoint: https://catfact.ninja/facts
 // Parameters:
@@ -67,6 +74,7 @@ The application follows a modular architecture with clear separation of concerns
 ```
 
 ### Random User API
+
 ```typescript
 // Endpoint: https://randomuser.me/api
 // Parameters:
@@ -78,10 +86,12 @@ The application follows a modular architecture with clear separation of concerns
 ## 💻 Development
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - npm or yarn
 
 ### Installation
+
 ```bash
 # Install dependencies
 npm install
@@ -94,6 +104,7 @@ npm run build
 ```
 
 ### Project Structure
+
 ```
 src/
 ├── components/        # React components
@@ -114,19 +125,21 @@ src/
 ## 🛠️ Technical Decisions
 
 1. **React Query over SWR/Custom Hooks**
-    - Built-in caching mechanisms
-    - Automatic background refetching
-    - Better TypeScript support
-    - Simplified infinite query handling
+
+   - Built-in caching mechanisms
+   - Automatic background refetching
+   - Better TypeScript support
+   - Simplified infinite query handling
 
 2. **Tailwind CSS over CSS-in-JS**
-    - No runtime overhead
-    - Faster development
-    - Better performance
-    - Consistent design system
+
+   - No runtime overhead
+   - Faster development
+   - Better performance
+   - Consistent design system
 
 3. **Custom Hook Abstraction**
-    - Separates concerns
-    - Reusable logic
-    - Easier testing
-    - Better maintainability
+   - Separates concerns
+   - Reusable logic
+   - Easier testing
+   - Better maintainability

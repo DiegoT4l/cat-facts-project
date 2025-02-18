@@ -10,5 +10,4 @@ function useCatFacts() {
   });
 }
 
-
 export default useCatFacts;

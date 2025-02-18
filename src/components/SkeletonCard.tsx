@@ -10,8 +10,7 @@ function SkeletonCard() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
 
 export default SkeletonCard;

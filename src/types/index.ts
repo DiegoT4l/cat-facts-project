@@ -2,22 +2,22 @@ type Picture = 'large' | 'medium' | 'thumbnail';
 
 export type UserType = {
   name: {
-    first: string,
-    last: string
-  }
+    first: string;
+    last: string;
+  };
   picture: {
-    [key in Picture]: string
-  }
-}
+    [key in Picture]: string;
+  };
+};
 
 export interface UserTypeResponse {
   results: UserType[];
 }
 
 export type CatFactType = {
-  fact: string
-  length: number
-}
+  fact: string;
+  length: number;
+};
 
 export type CatFactsResponse = {
   data: CatFactType[];
