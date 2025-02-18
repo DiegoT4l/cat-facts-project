@@ -1,6 +1,6 @@
-import {userType} from "@/types";
+import {UserType} from "@/types";
 
-function Card({ user, fact }: {user: userType, fact: string}) {
+function Card({ user, fact }: {user: UserType, fact: string}) {
   const { name, picture } = user;
 
   return (
